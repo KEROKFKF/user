@@ -19,17 +19,33 @@
             background-size: 50px 50px;
         }
         .header-white { background: #ffffff; border-bottom: 1px solid #eee; }
+        
+        /* شاشة اللغة والـ Popup */
         .lang-overlay, .contact-modal { 
-            position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; 
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; 
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            backdrop-filter: blur(8px);
         }
+        
+        /* تصميم البوب أب المطور */
+        .modal-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 2rem; /* حواف دائرية كبيرة */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); /* ظل قوي واحترافي */
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+        }
+
         .hidden { display: none !important; }
         [data-lang="ar"] { direction: rtl; }
         [data-lang="ar"] h2, [data-lang="ar"] h3, [data-lang="ar"] p, [data-lang="ar"] a, [data-lang="ar"] button {
             letter-spacing: 0 !important;
         }
-        .fade-in { animation: fadeIn 0.5s ease-in forwards; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
     </style>
 </head>
 <body>
@@ -38,37 +54,36 @@
         <div class="text-center px-4">
             <h2 class="text-white text-2xl md:text-4xl mb-12 font-bold uppercase">Select Language / اختر اللغة</h2>
             <div class="flex flex-col md:flex-row gap-6 justify-center">
-                <button onclick="setLanguage('en')" class="border border-white text-white px-12 py-4 hover:bg-white hover:text-black transition uppercase text-sm font-bold">English</button>
-                <button onclick="setLanguage('ar')" class="border border-white text-white px-12 py-4 hover:bg-white hover:text-black transition text-sm font-bold font-tajawal">العربية</button>
+                <button onclick="setLanguage('en')" class="border-2 border-white text-white px-12 py-4 hover:bg-white hover:text-black transition uppercase text-sm font-bold rounded-full">English</button>
+                <button onclick="setLanguage('ar')" class="border-2 border-white text-white px-12 py-4 hover:bg-white hover:text-black transition text-sm font-bold font-tajawal rounded-full">العربية</button>
             </div>
         </div>
     </div>
 
-    <div id="contactModal" class="contact-modal hidden fade-in">
-        <div class="bg-white p-8 md:p-12 text-center max-w-lg w-[90%] relative">
-            <button onclick="toggleContactModal()" class="absolute top-4 right-4 text-black font-bold text-xl">✕</button>
-            <h2 id="modalTitle" class="text-black text-2xl font-bold mb-8 uppercase tracking-widest">Connect With Us</h2>
+    <div id="contactModal" class="contact-modal hidden">
+        <div class="modal-card fade-in">
+            <button onclick="toggleContactModal()" class="absolute top-6 right-6 text-gray-400 hover:text-black transition text-xl">✕</button>
+            <h2 id="modalTitle" class="text-black text-2xl font-bold mb-8 uppercase tracking-tight">تواصل معنا عبر</h2>
             <div class="grid grid-cols-1 gap-4">
-                <a href="https://wa.me/201273929303" target="_blank" class="border border-black p-4 text-black hover:bg-black hover:text-white transition font-bold uppercase text-xs tracking-widest">1. WhatsApp</a>
-                <a href="tel:+201273929303" class="border border-black p-4 text-black hover:bg-black hover:text-white transition font-bold uppercase text-xs tracking-widest">2. Phone Call</a>
-                <a href="mailto:info@fateen.com" class="border border-black p-4 text-black hover:bg-black hover:text-white transition font-bold uppercase text-xs tracking-widest">3. Gmail</a>
-                <a href="https://facebook.com/yourpage" target="_blank" class="border border-black p-4 text-black hover:bg-black hover:text-white transition font-bold uppercase text-xs tracking-widest">4. Facebook</a>
+                <a href="https://wa.me/201273929303" target="_blank" class="bg-[#25D366] text-white p-4 rounded-xl hover:opacity-90 transition font-bold uppercase text-xs tracking-widest shadow-md">1. WhatsApp</a>
+                <a href="mailto:info@fateen.com" class="border-2 border-gray-100 p-4 rounded-xl text-black hover:bg-gray-50 transition font-bold uppercase text-xs tracking-widest">2. Gmail</a>
+                <a href="https://facebook.com/yourpage" target="_blank" class="border-2 border-gray-100 p-4 rounded-xl text-black hover:bg-gray-50 transition font-bold uppercase text-xs tracking-widest">3. Facebook</a>
             </div>
         </div>
     </div>
 
-    <div id="mainContent" class="hidden fade-in">
+    <div id="mainContent" class="hidden">
         <nav class="py-3 px-6 md:px-12 flex justify-between items-center header-white sticky top-0 z-50">
             <img src="لوجو فطين اسود.png" alt="Logo" class="h-10 md:h-12 w-auto">
-            <a href="https://wa.me/201273929303" target="_blank" class="bg-black text-white px-5 py-2 text-[10px] font-bold uppercase tracking-widest">Contact</a>
+            <a href="https://wa.me/201273929303" target="_blank" id="headerContact" class="bg-black text-white px-6 py-2.5 text-[10px] md:text-[11px] font-bold uppercase tracking-widest rounded-full hover:bg-gray-800 transition">تواصل عبر الواتساب</a>
         </nav>
 
         <section class="min-h-[85vh] tech-bg-dark flex flex-col justify-center items-center text-center p-8">
             <img src="لوجو فطين ابيض.png" alt="Hero Logo" class="w-72 md:w-[480px] mb-12">
             <h2 id="heroSub" class="text-white text-base md:text-xl font-medium mb-12 px-4 leading-relaxed uppercase tracking-[0.2em]">INTELLIGENT POINT OF SALE SOLUTIONS</h2>
             <div class="flex flex-wrap justify-center gap-6">
-                <button onclick="toggleContactModal()" id="btnChat" class="bg-white text-black px-12 py-4 text-xs font-bold uppercase hover:bg-gray-200 transition-all shadow-xl">Start Chat</button>
-                <a href="#services" id="btnSer" class="border border-white text-white px-12 py-4 text-xs font-bold uppercase hover:bg-white hover:text-black transition-all">Services</a>
+                <button onclick="toggleContactModal()" id="btnChat" class="bg-white text-black px-12 py-4 text-xs font-bold uppercase hover:bg-gray-200 transition-all shadow-xl rounded-full">Start Chat</button>
+                <a href="#services" id="btnSer" class="border-2 border-white text-white px-12 py-4 text-xs font-bold uppercase hover:bg-white hover:text-black transition-all rounded-full">Services</a>
             </div>
         </section>
 
@@ -80,7 +95,7 @@
         </section>
 
         <section class="py-24 tech-bg-dark text-center">
-            <img src="لوجو فطين ابيض.png" alt="Footer Logo" class="h-12 mx-auto mb-8 opacity-50">
+            <img src="لوجو فطين ابيض.png" alt="Footer Logo" class="h-12 mx-auto mb-8 opacity-40">
             <footer class="text-gray-400 text-[10px] uppercase tracking-[0.5em] font-bold px-4">
                 <p>© 2026 FATEEN POS SYSTEM - ASWAN, EGYPT</p>
             </footer>
@@ -95,6 +110,7 @@
                 btnSer: "View Expertise",
                 serTitle: "Our Expertise",
                 modalTitle: "Connect With Us",
+                headerContact: "WhatsApp Contact",
                 services: [
                     { t: "POS Systems", d: "High-performance systems for retail and hospitality, engineered for speed." },
                     { t: "AI Insights", d: "Data-driven analysis to forecast growth and optimize operations." },
@@ -108,6 +124,7 @@
                 btnSer: "مجالات الخبرة",
                 serTitle: "خبراتنا المتميزة",
                 modalTitle: "تواصل معنا عبر",
+                headerContact: "تواصل عبر الواتساب",
                 services: [
                     { t: "نظم الكاشير", d: "أنظمة برمجية فائقة الأداء مصممة خصيصاً للمحلات والمطاعم الكبرى." },
                     { t: "ذكاء الأعمال", d: "تحليلات متطورة مبنية على الذكاء الاصطناعي لتوقع الأرباح والنمو." },
@@ -125,10 +142,11 @@
             document.getElementById('btnSer').innerText = content[lang].btnSer;
             document.getElementById('serTitle').innerText = content[lang].serTitle;
             document.getElementById('modalTitle').innerText = content[lang].modalTitle;
+            document.getElementById('headerContact').innerText = content[lang].headerContact;
 
             const grid = document.getElementById('servicesGrid');
             grid.innerHTML = content[lang].services.map(s => `
-                <div class="bg-white border border-gray-200 p-10 text-center hover:shadow-2xl transition-all">
+                <div class="bg-white border border-gray-100 p-10 text-center hover:shadow-xl transition-all rounded-3xl">
                     <h3 class="text-sm font-bold mb-6 uppercase text-black tracking-widest">${s.t}</h3>
                     <p class="text-gray-600 text-xs md:text-sm leading-relaxed font-normal">${s.d}</p>
                 </div>
@@ -136,6 +154,7 @@
 
             document.getElementById('langSelector').style.display = 'none';
             document.getElementById('mainContent').classList.remove('hidden');
+            document.getElementById('mainContent').classList.add('fade-in');
             window.scrollTo(0,0);
         }
 
