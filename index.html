@@ -19,31 +19,29 @@
             background-size: 50px 50px;
         }
         .header-white { background: #ffffff; border-bottom: 1px solid #eee; }
-        
-        /* شاشة اللغة والـ Popup */
         .lang-overlay, .contact-modal { 
             position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; 
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
             backdrop-filter: blur(8px);
         }
-        
-        /* تصميم البوب أب المطور */
         .modal-card {
             background: white;
             padding: 2.5rem;
-            border-radius: 2rem; /* حواف دائرية كبيرة */
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); /* ظل قوي واحترافي */
+            border-radius: 2.5rem;
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6);
             text-align: center;
             max-width: 450px;
             width: 90%;
             position: relative;
         }
-
+        .pulse-green { animation: pulse-animation 2s infinite; }
+        @keyframes pulse-animation {
+            0% { box-shadow: 0 0 0 0px rgba(37, 211, 102, 0.6); }
+            100% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+        }
         .hidden { display: none !important; }
         [data-lang="ar"] { direction: rtl; }
-        [data-lang="ar"] h2, [data-lang="ar"] h3, [data-lang="ar"] p, [data-lang="ar"] a, [data-lang="ar"] button {
-            letter-spacing: 0 !important;
-        }
+        [data-lang="ar"] h2, [data-lang="ar"] h3, [data-lang="ar"] p, [data-lang="ar"] a, [data-lang="ar"] button { letter-spacing: 0 !important; }
         .fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
     </style>
@@ -63,11 +61,11 @@
     <div id="contactModal" class="contact-modal hidden">
         <div class="modal-card fade-in">
             <button onclick="toggleContactModal()" class="absolute top-6 right-6 text-gray-400 hover:text-black transition text-xl">✕</button>
-            <h2 id="modalTitle" class="text-black text-2xl font-bold mb-8 uppercase tracking-tight">تواصل معنا عبر</h2>
-            <div class="grid grid-cols-1 gap-4">
-                <a href="https://wa.me/201273929303" target="_blank" class="bg-[#25D366] text-white p-4 rounded-xl hover:opacity-90 transition font-bold uppercase text-xs tracking-widest shadow-md">1. WhatsApp</a>
-                <a href="mailto:info@fateen.com" class="border-2 border-gray-100 p-4 rounded-xl text-black hover:bg-gray-50 transition font-bold uppercase text-xs tracking-widest">2. Gmail</a>
-                <a href="https://facebook.com/yourpage" target="_blank" class="border-2 border-gray-100 p-4 rounded-xl text-black hover:bg-gray-50 transition font-bold uppercase text-xs tracking-widest">3. Facebook</a>
+            <h2 id="modalTitle" class="text-black text-2xl font-bold mb-8 uppercase">تواصل معنا عبر</h2>
+            <div class="grid grid-cols-1 gap-5">
+                <a href="https://wa.me/201273929303" target="_blank" class="bg-[#25D366] pulse-green text-white p-5 rounded-2xl hover:opacity-90 transition font-bold uppercase text-xs tracking-widest shadow-lg">1. WhatsApp</a>
+                <a href="mailto:info@fateen.com" class="border-2 border-gray-100 p-5 rounded-2xl text-black hover:bg-gray-50 transition font-bold uppercase text-xs tracking-widest">2. Gmail</a>
+                <a href="https://facebook.com/yourpage" target="_blank" class="border-2 border-gray-100 p-5 rounded-2xl text-black hover:bg-gray-50 transition font-bold uppercase text-xs tracking-widest">3. Facebook</a>
             </div>
         </div>
     </div>
@@ -152,15 +150,13 @@
                 </div>
             `).join('');
 
-            document.getElementById('langSelector').style.display = 'none';
+            document.getElementById('langSelector').classList.add('hidden');
             document.getElementById('mainContent').classList.remove('hidden');
-            document.getElementById('mainContent').classList.add('fade-in');
             window.scrollTo(0,0);
         }
 
         function toggleContactModal() {
-            const modal = document.getElementById('contactModal');
-            modal.classList.toggle('hidden');
+            document.getElementById('contactModal').classList.toggle('hidden');
         }
     </script>
 </body>
