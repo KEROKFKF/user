@@ -1,96 +1,126 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FATEEN POS System</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Tajawal', sans-serif; background-color: #000000; color: #ffffff; scroll-behavior: smooth; }
+        :root { --primary-bg: #000000; }
+        body { font-family: 'Inter', 'Tajawal', sans-serif; background-color: var(--primary-bg); color: #ffffff; scroll-behavior: smooth; overflow-x: hidden; }
         
-        /* تأثير الزجاج الأبيض القوي للهيدر */
-        .glass-header { 
-            background: rgba(255, 255, 255, 0.15); 
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        /* نقوش الخلفية التقنية */
+        .tech-bg {
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
 
-        .hover-white:hover { background-color: #ffffff; color: #000000; transition: 0.3s; }
-        .card-black { background-color: #0a0a0a; border: 1px solid #222; }
+        .header-white { background-color: #ffffff; border-bottom: 1px solid #ddd; }
+        .lang-overlay { position: fixed; inset: 0; background: #000; z-index: 9999; display: flex; align-items: center; justify-content: center; }
+        .card-black { background: rgba(10, 10, 10, 0.8); border: 1px solid #222; transition: all 0.4s ease; }
+        .card-black:hover { border-color: #fff; transform: translateY(-5px); }
         
-        .contact-glow:hover {
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
-            border-color: #ffffff;
-        }
+        [data-lang="ar"] { direction: rtl; }
+        [data-lang="en"] { direction: ltr; }
     </style>
 </head>
-<body>
+<body class="tech-bg">
 
-    <nav class="p-4 flex justify-between items-center glass-header sticky top-0 z-50">
-        <div class="flex items-center gap-4">
-            <img src="لوجو فطين اسود.png" alt="FATEEN Logo Black" class="h-10 md:h-12 w-auto">
-        </div>
-        <div class="flex items-center gap-6">
-            <div class="space-x-reverse space-x-6 hidden md:flex ml-4">
-                <a href="#services" class="text-white hover:text-gray-300 transition text-sm font-bold">الخدمات</a>
-                <a href="#contact" class="text-white hover:text-gray-300 transition text-sm font-bold">تواصل</a>
+    <div id="langSelector" class="lang-overlay">
+        <div class="text-center">
+            <h2 class="text-2xl mb-8 tracking-widest uppercase font-light">Select Language / اختر اللغة</h2>
+            <div class="flex gap-6">
+                <button onclick="setLanguage('en')" class="border border-white px-8 py-3 hover:bg-white hover:text-black transition uppercase text-sm font-bold">English</button>
+                <button onclick="setLanguage('ar')" class="border border-white px-8 py-3 hover:bg-white hover:text-black transition text-sm font-bold font-tajawal">العربية</button>
             </div>
-            <a href="https://wa.me/201273929303" class="bg-white text-black px-5 py-2 text-xs font-bold hover:bg-gray-200 transition-all rounded-sm uppercase">اطلب الآن</a>
         </div>
-    </nav>
+    </div>
 
-    <section class="h-[85vh] flex flex-col justify-center items-center text-center p-4">
-        <img src="لوجو فطين ابيض.png" alt="FATEEN Logo White" class="w-72 md:w-[450px] mb-12 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+    <div id="mainContent" class="hidden">
         
-        <p class="text-gray-400 text-lg md:text-xl max-w-2xl font-light italic tracking-widest mb-10">
-            INTELLIGENT POINT OF SALE SOLUTIONS
-        </p>
-        
-        <div class="flex flex-wrap justify-center gap-5">
-            <a href="https://wa.me/201273929303" class="bg-white text-black px-12 py-4 font-bold hover:bg-gray-100 transition-all text-sm uppercase tracking-widest">واتساب مباشر</a>
-            <a href="#services" class="border border-white/20 text-white px-12 py-4 hover-white transition-all text-sm uppercase tracking-widest">خدماتنا</a>
-        </div>
-    </section>
-
-    <section id="contact" class="py-24 bg-[#050505] text-center border-y border-white/5">
-        <h2 class="text-xl font-light mb-16 text-gray-400 uppercase tracking-[0.4em]">Get In Touch</h2>
-        
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 px-6 max-w-5xl mx-auto text-[10px] font-bold tracking-widest">
-            <a href="https://wa.me/201273929303" target="_blank" class="border border-white/10 py-6 hover-white transition-all contact-glow uppercase">Whatsapp</a>
-            <a href="tel:+201273929303" class="border border-white/10 py-6 hover-white transition-all contact-glow uppercase">Call Now</a>
-            <a href="https://facebook.com/yourpage" target="_blank" class="border border-white/10 py-6 hover-white transition-all contact-glow uppercase">Facebook</a>
-            <a href="mailto:info@fateen.com" class="border border-white/10 py-6 hover-white transition-all contact-glow uppercase">Gmail</a>
-        </div>
-    </section>
-
-    <section id="services" class="py-24 px-8 max-w-7xl mx-auto">
-        <h2 class="text-2xl font-bold text-center mb-20 tracking-[0.2em] uppercase">Expertise</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
-            <div class="card-black p-10 rounded-none border-gray-800 hover:border-white transition-all duration-500">
-                <h3 class="text-sm font-bold mb-6 tracking-widest uppercase text-white">POS Systems</h3>
-                <p class="text-gray-500 text-xs leading-relaxed font-light">أنظمة كاشير احترافية للمطاعم والمحلات تعمل بكفاءة عالية أوفلاين.</p>
+        <nav class="p-4 flex justify-between items-center header-white sticky top-0 z-50">
+            <img src="لوجو فطين اسود.png" alt="Logo" class="h-8 md:h-10">
+            <div class="flex items-center gap-6">
+                <a href="https://wa.me/201273929303" class="bg-black text-white px-6 py-2 text-xs font-bold uppercase tracking-tighter hover:bg-gray-800 transition">Contact Now</a>
             </div>
-            <div class="card-black p-10 rounded-none border-gray-800 hover:border-white transition-all duration-500">
-                <h3 class="text-sm font-bold mb-6 tracking-widest uppercase text-white">AI Analysis</h3>
-                <p class="text-gray-500 text-xs leading-relaxed font-light">تحليل ذكي للمبيعات يساعدك على اتخاذ قرارات دقيقة مبنية على البيانات.</p>
-            </div>
-            <div class="card-black p-10 rounded-none border-gray-800 hover:border-white transition-all duration-500">
-                <h3 class="text-sm font-bold mb-6 tracking-widest uppercase text-white">Cloud Dashboards</h3>
-                <p class="text-gray-500 text-xs leading-relaxed font-light">راقب مبيعاتك ومخازنك من أي مكان في العالم عبر لوحات تحكم سحابية.</p>
-            </div>
-            <div class="card-black p-10 rounded-none border-gray-800 hover:border-white transition-all duration-500">
-                <h3 class="text-sm font-bold mb-6 tracking-widest uppercase text-white">24/7 Support</h3>
-                <p class="text-gray-500 text-xs leading-relaxed font-light">دعم فني متخصص متواجد دائماً لضمان استمرارية أعمالك دون أي توقف.</p>
-            </div>
-        </div>
-    </section>
+        </nav>
 
-    <footer class="py-16 border-t border-gray-900 text-center text-gray-700 text-[10px] tracking-[0.5em] uppercase">
-        <p>© 2026 FATEEN POS SYSTEM - ASWAN, EGYPT</p>
-    </footer>
+        <section class="min-h-[90vh] flex flex-col justify-center items-center text-center p-6">
+            <img src="لوجو فطين ابيض.png" alt="Hero Logo" class="w-64 md:w-[400px] mb-12">
+            <h2 id="heroSub" class="text-white text-sm md:text-lg font-light tracking-[0.4em] uppercase mb-12">
+                INTELLIGENT POINT OF SALE SOLUTIONS
+            </h2>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="https://wa.me/201273929303" id="btnWa" class="bg-white text-black px-10 py-4 text-xs font-extrabold uppercase tracking-widest hover:invert transition-all">Whatsapp</a>
+                <a href="#services" id="btnSer" class="border border-white text-white px-10 py-4 text-xs font-extrabold uppercase tracking-widest hover:bg-white hover:text-black transition-all">Services</a>
+            </div>
+        </section>
 
+        <section id="services" class="py-24 px-6 max-w-7xl mx-auto">
+            <h2 id="serTitle" class="text-center text-2xl font-bold uppercase tracking-[0.3em] mb-20">Our Expertise</h2>
+            <div id="servicesGrid" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                </div>
+        </section>
+
+        <footer class="py-12 border-t border-white/10 text-center text-gray-500 text-[10px] tracking-[0.5em] uppercase">
+            <p>© 2026 FATEEN POS SYSTEM - ASWAN, EGYPT</p>
+        </footer>
+    </div>
+
+    <script>
+        const content = {
+            en: {
+                heroSub: "INTELLIGENT POINT OF SALE SOLUTIONS",
+                btnWa: "Direct Whatsapp",
+                btnSer: "View Services",
+                serTitle: "Our Expertise",
+                services: [
+                    { t: "POS Systems", d: "Offline-first systems designed for high-traffic retail and restaurants." },
+                    { t: "AI Analysis", d: "Leverage machine learning to predict trends and optimize inventory." },
+                    { t: "Cloud Reporting", d: "Real-time dashboards accessible from anywhere in the world." },
+                    { t: "24/7 Support", d: "Dedicated technical experts ensuring your business never stops." }
+                ]
+            },
+            ar: {
+                heroSub: "حلول نقاط البيع الذكية",
+                btnWa: "واتساب مباشر",
+                btnSer: "استعراض الخدمات",
+                serTitle: "خبراتنا",
+                services: [
+                    { t: "نظم الكاشير", d: "أنظمة تعمل بدون إنترنت، مصممة للمطاعم والمحلات التجارية الكبرى." },
+                    { t: "الذكاء الاصطناعي", d: "استخدام تعلم الآلة لتوقع الاتجاهات وتحسين المخزون." },
+                    { t: "تقارير سحابية", d: "لوحات تحكم لحظية يمكن الوصول إليها من أي مكان في العالم." },
+                    { t: "دعم 24/7", d: "خبراء فنيون لضمان استمرارية أعمالك دون أي توقف." }
+                ]
+            }
+        };
+
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.body.setAttribute('data-lang', lang);
+            
+            // Update Text
+            document.getElementById('heroSub').innerText = content[lang].heroSub;
+            document.getElementById('btnWa').innerText = content[lang].btnWa;
+            document.getElementById('btnSer').innerText = content[lang].btnSer;
+            document.getElementById('serTitle').innerText = content[lang].serTitle;
+
+            // Update Services Grid
+            const grid = document.getElementById('servicesGrid');
+            grid.innerHTML = content[lang].services.map(s => `
+                <div class="card-black p-10">
+                    <h3 class="text-sm font-bold mb-4 uppercase tracking-widest text-white">${s.t}</h3>
+                    <p class="text-gray-500 text-xs leading-relaxed font-light">${s.d}</p>
+                </div>
+            `).join('');
+
+            // Show Content
+            document.getElementById('langSelector').classList.add('hidden');
+            document.getElementById('mainContent').classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>
