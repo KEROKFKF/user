@@ -7,46 +7,42 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --primary-bg: #000000; }
-        body { font-family: 'Inter', 'Tajawal', sans-serif; background-color: var(--primary-bg); color: #ffffff; scroll-behavior: smooth; overflow-x: hidden; margin: 0; }
+        body { font-family: 'Inter', 'Tajawal', sans-serif; margin: 0; scroll-behavior: smooth; overflow-x: hidden; }
         
-        .tech-bg {
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        /* نقوش الخلفية للقسم الأسود */
+        .tech-bg-dark {
+            background-color: #000000;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
         }
 
-        .glass-header-white { 
-            background: rgba(255, 255, 255, 0.95); 
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid #ddd;
-        }
-        
-        /* حل مشكلة تنقيط وتقطيع الخط العربي */
-        [data-lang="ar"] { 
-            direction: rtl; 
-        }
-        [data-lang="ar"] h2, [data-lang="ar"] h3, [data-lang="ar"] p, [data-lang="ar"] a, [data-lang="ar"] button {
-            letter-spacing: normal !important; /* يلغي التنقيط المسافات بين الحروف */
-            word-spacing: normal !important;
+        /* نقوش الخلفية للقسم الأبيض */
+        .tech-bg-light {
+            background-color: #ffffff;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
         }
 
+        .header-white { background: #ffffff; border-bottom: 1px solid #eee; }
         .lang-overlay { position: fixed; inset: 0; background: #000; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .card-black { background: rgba(10, 10, 10, 0.9); border: 1px solid #222; transition: all 0.4s ease; }
         
+        /* تنظيف الخط العربي */
+        [data-lang="ar"] { direction: rtl; }
+        [data-lang="ar"] h2, [data-lang="ar"] h3, [data-lang="ar"] p, [data-lang="ar"] a, [data-lang="ar"] button {
+            letter-spacing: normal !important;
+        }
+
         .fade-in { animation: fadeIn 1s ease-in forwards; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
-<body class="tech-bg">
+<body>
 
     <div id="langSelector" class="lang-overlay">
         <div class="text-center px-4">
-            <h2 class="text-2xl md:text-4xl mb-12 uppercase font-bold text-white tracking-[0.1em]">Language / اللغة</h2>
+            <h2 class="text-2xl md:text-4xl mb-12 font-bold text-white uppercase tracking-widest">Select Language / اختر اللغة</h2>
             <div class="flex flex-col md:flex-row gap-6 justify-center">
-                <button onclick="setLanguage('en')" class="border border-white px-12 py-4 hover:bg-white hover:text-black transition uppercase text-sm font-bold tracking-widest">English</button>
+                <button onclick="setLanguage('en')" class="border border-white px-12 py-4 hover:bg-white hover:text-black transition uppercase text-sm font-bold">English</button>
                 <button onclick="setLanguage('ar')" class="border border-white px-12 py-4 hover:bg-white hover:text-black transition text-sm font-bold font-tajawal">العربية</button>
             </div>
         </div>
@@ -54,33 +50,40 @@
 
     <div id="mainContent" class="hidden fade-in">
         
-        <nav class="py-3 px-6 md:px-12 flex justify-between items-center glass-header-white sticky top-0 z-50">
-            <img src="لوجو فطين اسود.png" alt="Logo" class="h-10 md:h-14 w-auto">
-            <div class="flex items-center gap-6">
-                <a href="https://wa.me/201273929303" class="bg-black text-white px-4 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-gray-700 transition">Contact</a>
-            </div>
+        <nav class="py-3 px-6 md:px-12 flex justify-between items-center header-white sticky top-0 z-50">
+            <img src="لوجو فطين اسود.png" alt="Logo" class="h-10 md:h-12 w-auto">
+            <a href="https://wa.me/201273929303" class="bg-black text-white px-5 py-2 text-[10px] font-bold uppercase tracking-widest">Contact</a>
         </nav>
 
-        <section class="min-h-[85vh] flex flex-col justify-center items-center text-center p-8">
-            <img src="لوجو فطين ابيض.png" alt="Hero Logo" class="w-72 md:w-[500px] mb-12 drop-shadow-xl">
-            <h2 id="heroSub" class="text-white text-base md:text-xl font-medium mb-12 px-4 leading-relaxed">
+        <section class="min-h-[85vh] tech-bg-dark flex flex-col justify-center items-center text-center p-8">
+            <img src="لوجو فطين ابيض.png" alt="Hero Logo" class="w-72 md:w-[480px] mb-12">
+            <h2 id="heroSub" class="text-white text-base md:text-xl font-medium mb-12 px-4 leading-relaxed uppercase tracking-[0.2em]">
                 INTELLIGENT POINT OF SALE SOLUTIONS
             </h2>
             <div class="flex flex-wrap justify-center gap-6">
-                <a href="https://wa.me/201273929303" id="btnWa" class="bg-white text-black px-12 py-4 text-xs font-bold uppercase hover:bg-gray-100 transition-all shadow-xl">Whatsapp</a>
+                <a href="https://wa.me/201273929303" id="btnWa" class="bg-white text-black px-12 py-4 text-xs font-bold uppercase hover:bg-gray-200 transition-all shadow-xl">Whatsapp</a>
                 <a href="#services" id="btnSer" class="border border-white text-white px-12 py-4 text-xs font-bold uppercase hover:bg-white hover:text-black transition-all">Services</a>
             </div>
         </section>
 
-        <section id="services" class="py-24 px-8 max-w-7xl mx-auto">
-            <h2 id="serTitle" class="text-center text-2xl font-bold mb-20">Expertise</h2>
-            <div id="servicesGrid" class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                </div>
+        <section id="services" class="py-28 tech-bg-light border-y border-gray-100">
+            <div class="max-w-7xl mx-auto px-8">
+                <h2 id="serTitle" class="text-center text-black text-3xl font-bold uppercase mb-20 tracking-widest">Our Expertise</h2>
+                <div id="servicesGrid" class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    </div>
+            </div>
         </section>
 
-        <footer class="py-16 border-t border-white/5 text-center text-gray-600 text-[10px] uppercase">
-            <p>© 2026 FATEEN POS SYSTEM - ASWAN, EGYPT</p>
-        </footer>
+        <section class="py-24 tech-bg-dark text-center">
+            <img src="لوجو فطين ابيض.png" alt="Footer Logo" class="h-12 mx-auto mb-8 opacity-50">
+            <div class="flex justify-center gap-8 mb-12">
+                <a href="https://wa.me/201273929303" class="text-white hover:text-gray-400 text-xs font-bold uppercase tracking-widest">WhatsApp</a>
+                <a href="tel:+201273929303" class="text-white hover:text-gray-400 text-xs font-bold uppercase tracking-widest">Call</a>
+            </div>
+            <footer class="text-gray-600 text-[10px] uppercase tracking-[0.5em]">
+                <p>© 2026 FATEEN POS SYSTEM - ASWAN, EGYPT</p>
+            </footer>
+        </section>
     </div>
 
     <script>
@@ -88,20 +91,20 @@
             en: {
                 heroSub: "INTELLIGENT POINT OF SALE SOLUTIONS",
                 btnWa: "Start Chat",
-                btnSer: "Our Services",
+                btnSer: "View Expertise",
                 serTitle: "Our Expertise",
                 services: [
-                    { t: "POS Systems", d: "Professional grade systems for retail and hospitality, engineered for speed and stability." },
-                    { t: "AI Insights", d: "Advanced data analytics to forecast growth and optimize your business operations." },
-                    { t: "Cloud Control", d: "Full global access to your business data through military-grade secure cloud panels." },
+                    { t: "POS Systems", d: "High-performance systems for retail and hospitality, engineered for speed." },
+                    { t: "AI Insights", d: "Data-driven analysis to forecast growth and optimize operations." },
+                    { t: "Cloud Control", d: "Manage your business from anywhere with our secure cloud panels." },
                     { t: "24/7 Support", d: "Elite technical team ready to support your business around the clock." }
                 ]
             },
             ar: {
                 heroSub: "حلول نقاط البيع الذكية المتكاملة للمؤسسات",
                 btnWa: "تحدث معنا",
-                btnSer: "خدماتنا",
-                serTitle: "مجالات الخبرة",
+                btnSer: "مجالات الخبرة",
+                serTitle: "خبراتنا المتميزة",
                 services: [
                     { t: "نظم الكاشير", d: "أنظمة برمجية فائقة الأداء مصممة خصيصاً للمحلات والمطاعم الكبرى." },
                     { t: "ذكاء الأعمال", d: "تحليلات متطورة مبنية على الذكاء الاصطناعي لتوقع الأرباح والنمو." },
@@ -122,9 +125,9 @@
 
             const grid = document.getElementById('servicesGrid');
             grid.innerHTML = content[lang].services.map(s => `
-                <div class="card-black p-10 text-center">
-                    <h3 class="text-sm font-bold mb-6 uppercase text-white">${s.t}</h3>
-                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed font-normal">${s.d}</p>
+                <div class="bg-white border border-gray-200 p-10 text-center hover:shadow-2xl transition-all">
+                    <h3 class="text-sm font-bold mb-6 uppercase text-black tracking-widest">${s.t}</h3>
+                    <p class="text-gray-600 text-xs md:text-sm leading-relaxed font-normal">${s.d}</p>
                 </div>
             `).join('');
 
