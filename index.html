@@ -65,7 +65,7 @@
             <div class="grid grid-cols-1 gap-5">
                 <a href="https://wa.me/201273929303" target="_blank" class="bg-[#25D366] pulse-green text-white p-5 rounded-2xl hover:opacity-90 transition font-bold uppercase text-xs tracking-widest shadow-lg">1. WhatsApp</a>
                 <a href="mailto:info@fateen.com" class="border-2 border-gray-100 p-5 rounded-2xl text-black hover:bg-gray-50 transition font-bold uppercase text-xs tracking-widest">2. Gmail</a>
-                <a href="https://facebook.com/yourpage" target="_blank" class="border-2 border-gray-100 p-5 rounded-2xl text-black hover:bg-gray-50 transition font-bold uppercase text-xs tracking-widest">3. Facebook</a>
+                <button onclick="showFbAlert()" class="border-2 border-gray-100 p-5 rounded-2xl text-black hover:bg-gray-50 transition font-bold uppercase text-xs tracking-widest">3. Facebook</button>
             </div>
         </div>
     </div>
@@ -109,6 +109,7 @@
                 serTitle: "Our Expertise",
                 modalTitle: "Connect With Us",
                 headerContact: "WhatsApp Contact",
+                fbMsg: "Our Facebook page is under construction and will be available soon!",
                 services: [
                     { t: "POS Systems", d: "High-performance systems for retail and hospitality, engineered for speed." },
                     { t: "AI Insights", d: "Data-driven analysis to forecast growth and optimize operations." },
@@ -123,6 +124,7 @@
                 serTitle: "خبراتنا المتميزة",
                 modalTitle: "تواصل معنا عبر",
                 headerContact: "تواصل عبر الواتساب",
+                fbMsg: "صفحة الفيسبوك قيد التجهيز حالياً وستعمل قريباً جداً!",
                 services: [
                     { t: "نظم الكاشير", d: "أنظمة برمجية فائقة الأداء مصممة خصيصاً للمحلات والمطاعم الكبرى." },
                     { t: "ذكاء الأعمال", d: "تحليلات متطورة مبنية على الذكاء الاصطناعي لتوقع الأرباح والنمو." },
@@ -132,7 +134,10 @@
             }
         };
 
+        let currentLang = 'en';
+
         function setLanguage(lang) {
+            currentLang = lang;
             document.documentElement.lang = lang;
             document.body.setAttribute('data-lang', lang);
             document.getElementById('heroSub').innerText = content[lang].heroSub;
@@ -157,6 +162,10 @@
 
         function toggleContactModal() {
             document.getElementById('contactModal').classList.toggle('hidden');
+        }
+
+        function showFbAlert() {
+            alert(content[currentLang].fbMsg);
         }
     </script>
 </body>
