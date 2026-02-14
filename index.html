@@ -7,43 +7,28 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* توحيد الخط في كامل الموقع */
         body { font-family: 'Inter', 'Tajawal', sans-serif; margin: 0; scroll-behavior: smooth; overflow-x: hidden; }
-        
         .tech-bg-dark {
             background-color: #000000;
             background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
         }
-
         .tech-bg-light {
             background-color: #ffffff;
             background-image: linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
         }
-
         .header-white { background: #ffffff; border-bottom: 1px solid #eee; }
-        
-        /* شاشة اختيار اللغة */
-        .lang-overlay { 
-            position: fixed; 
-            inset: 0; 
-            background: #000; 
-            z-index: 9999; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
+        .lang-overlay, .contact-modal { 
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
         }
-
-        /* منع تقطيع الخط العربي في كل الموقع */
+        .hidden { display: none !important; }
         [data-lang="ar"] { direction: rtl; }
-        [data-lang="ar"] h2, [data-lang="ar"] h3, [data-lang="ar"] p, [data-lang="ar"] a, [data-lang="ar"] button, [data-lang="ar"] footer {
+        [data-lang="ar"] h2, [data-lang="ar"] h3, [data-lang="ar"] p, [data-lang="ar"] a, [data-lang="ar"] button {
             letter-spacing: 0 !important;
-            word-spacing: normal !important;
         }
-
-        .fade-in { animation: fadeIn 1s ease-in forwards; }
+        .fade-in { animation: fadeIn 0.5s ease-in forwards; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
@@ -51,9 +36,7 @@
 
     <div id="langSelector" class="lang-overlay">
         <div class="text-center px-4">
-            <h2 class="text-white text-2xl md:text-4xl mb-12 font-bold uppercase tracking-tight md:tracking-widest">
-                Select Language / اختر اللغة
-            </h2>
+            <h2 class="text-white text-2xl md:text-4xl mb-12 font-bold uppercase">Select Language / اختر اللغة</h2>
             <div class="flex flex-col md:flex-row gap-6 justify-center">
                 <button onclick="setLanguage('en')" class="border border-white text-white px-12 py-4 hover:bg-white hover:text-black transition uppercase text-sm font-bold">English</button>
                 <button onclick="setLanguage('ar')" class="border border-white text-white px-12 py-4 hover:bg-white hover:text-black transition text-sm font-bold font-tajawal">العربية</button>
@@ -61,20 +44,30 @@
         </div>
     </div>
 
+    <div id="contactModal" class="contact-modal hidden fade-in">
+        <div class="bg-white p-8 md:p-12 text-center max-w-lg w-[90%] relative">
+            <button onclick="toggleContactModal()" class="absolute top-4 right-4 text-black font-bold text-xl">✕</button>
+            <h2 id="modalTitle" class="text-black text-2xl font-bold mb-8 uppercase tracking-widest">Connect With Us</h2>
+            <div class="grid grid-cols-1 gap-4">
+                <a href="https://wa.me/201273929303" target="_blank" class="border border-black p-4 text-black hover:bg-black hover:text-white transition font-bold uppercase text-xs tracking-widest">1. WhatsApp</a>
+                <a href="tel:+201273929303" class="border border-black p-4 text-black hover:bg-black hover:text-white transition font-bold uppercase text-xs tracking-widest">2. Phone Call</a>
+                <a href="mailto:info@fateen.com" class="border border-black p-4 text-black hover:bg-black hover:text-white transition font-bold uppercase text-xs tracking-widest">3. Gmail</a>
+                <a href="https://facebook.com/yourpage" target="_blank" class="border border-black p-4 text-black hover:bg-black hover:text-white transition font-bold uppercase text-xs tracking-widest">4. Facebook</a>
+            </div>
+        </div>
+    </div>
+
     <div id="mainContent" class="hidden fade-in">
-        
         <nav class="py-3 px-6 md:px-12 flex justify-between items-center header-white sticky top-0 z-50">
             <img src="لوجو فطين اسود.png" alt="Logo" class="h-10 md:h-12 w-auto">
-            <a href="https://wa.me/201273929303" class="bg-black text-white px-5 py-2 text-[10px] font-bold uppercase tracking-widest">Contact</a>
+            <a href="https://wa.me/201273929303" target="_blank" class="bg-black text-white px-5 py-2 text-[10px] font-bold uppercase tracking-widest">Contact</a>
         </nav>
 
         <section class="min-h-[85vh] tech-bg-dark flex flex-col justify-center items-center text-center p-8">
             <img src="لوجو فطين ابيض.png" alt="Hero Logo" class="w-72 md:w-[480px] mb-12">
-            <h2 id="heroSub" class="text-white text-base md:text-xl font-medium mb-12 px-4 leading-relaxed uppercase tracking-[0.2em]">
-                INTELLIGENT POINT OF SALE SOLUTIONS
-            </h2>
+            <h2 id="heroSub" class="text-white text-base md:text-xl font-medium mb-12 px-4 leading-relaxed uppercase tracking-[0.2em]">INTELLIGENT POINT OF SALE SOLUTIONS</h2>
             <div class="flex flex-wrap justify-center gap-6">
-                <a href="https://wa.me/201273929303" id="btnWa" class="bg-white text-black px-12 py-4 text-xs font-bold uppercase hover:bg-gray-200 transition-all shadow-xl">Whatsapp</a>
+                <button onclick="toggleContactModal()" id="btnChat" class="bg-white text-black px-12 py-4 text-xs font-bold uppercase hover:bg-gray-200 transition-all shadow-xl">Start Chat</button>
                 <a href="#services" id="btnSer" class="border border-white text-white px-12 py-4 text-xs font-bold uppercase hover:bg-white hover:text-black transition-all">Services</a>
             </div>
         </section>
@@ -82,17 +75,12 @@
         <section id="services" class="py-28 tech-bg-light border-y border-gray-100">
             <div class="max-w-7xl mx-auto px-8">
                 <h2 id="serTitle" class="text-center text-black text-3xl font-bold uppercase mb-20 tracking-widest">Our Expertise</h2>
-                <div id="servicesGrid" class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    </div>
+                <div id="servicesGrid" class="grid md:grid-cols-2 lg:grid-cols-4 gap-8"></div>
             </div>
         </section>
 
         <section class="py-24 tech-bg-dark text-center">
             <img src="لوجو فطين ابيض.png" alt="Footer Logo" class="h-12 mx-auto mb-8 opacity-50">
-            <div class="flex justify-center gap-8 mb-12">
-                <a href="https://wa.me/201273929303" class="text-white hover:text-gray-400 text-xs font-bold uppercase tracking-widest">WhatsApp</a>
-                <a href="tel:+201273929303" class="text-white hover:text-gray-400 text-xs font-bold uppercase tracking-widest">Call</a>
-            </div>
             <footer class="text-gray-400 text-[10px] uppercase tracking-[0.5em] font-bold px-4">
                 <p>© 2026 FATEEN POS SYSTEM - ASWAN, EGYPT</p>
             </footer>
@@ -103,9 +91,10 @@
         const content = {
             en: {
                 heroSub: "INTELLIGENT POINT OF SALE SOLUTIONS",
-                btnWa: "Start Chat",
+                btnChat: "Start Chat",
                 btnSer: "View Expertise",
                 serTitle: "Our Expertise",
+                modalTitle: "Connect With Us",
                 services: [
                     { t: "POS Systems", d: "High-performance systems for retail and hospitality, engineered for speed." },
                     { t: "AI Insights", d: "Data-driven analysis to forecast growth and optimize operations." },
@@ -115,9 +104,10 @@
             },
             ar: {
                 heroSub: "حلول نقاط البيع الذكية المتكاملة للمؤسسات",
-                btnWa: "تحدث معنا",
+                btnChat: "تحدث معنا",
                 btnSer: "مجالات الخبرة",
                 serTitle: "خبراتنا المتميزة",
+                modalTitle: "تواصل معنا عبر",
                 services: [
                     { t: "نظم الكاشير", d: "أنظمة برمجية فائقة الأداء مصممة خصيصاً للمحلات والمطاعم الكبرى." },
                     { t: "ذكاء الأعمال", d: "تحليلات متطورة مبنية على الذكاء الاصطناعي لتوقع الأرباح والنمو." },
@@ -131,9 +121,10 @@
             document.documentElement.lang = lang;
             document.body.setAttribute('data-lang', lang);
             document.getElementById('heroSub').innerText = content[lang].heroSub;
-            document.getElementById('btnWa').innerText = content[lang].btnWa;
+            document.getElementById('btnChat').innerText = content[lang].btnChat;
             document.getElementById('btnSer').innerText = content[lang].btnSer;
             document.getElementById('serTitle').innerText = content[lang].serTitle;
+            document.getElementById('modalTitle').innerText = content[lang].modalTitle;
 
             const grid = document.getElementById('servicesGrid');
             grid.innerHTML = content[lang].services.map(s => `
@@ -146,6 +137,11 @@
             document.getElementById('langSelector').style.display = 'none';
             document.getElementById('mainContent').classList.remove('hidden');
             window.scrollTo(0,0);
+        }
+
+        function toggleContactModal() {
+            const modal = document.getElementById('contactModal');
+            modal.classList.toggle('hidden');
         }
     </script>
 </body>
